@@ -1,0 +1,5 @@
+Table status
+
+una scritta che deve cambiare tra ordine partito(confermato), sta arrivando, consegnato
+
+deve cambiare tramite un dato che mettiamo nella tabella status (supabase).
