@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/src/cubits/feed/cubit.dart';
 import 'package:myapp/src/cubits/shop/cubit.dart';
+import 'package:myapp/src/designSystem/categories.dart';
 import 'package:myapp/src/models/product.dart';
 import 'package:myapp/src/pages/product/product.dart';
 
@@ -29,8 +30,11 @@ class ShopPage extends StatelessWidget {
             height: 400,
             padding: const EdgeInsets.all(32),
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(imageUrl), fit: BoxFit.cover)),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,69 +91,13 @@ class ShopPage extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             height: 100,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Container(
-                      width: 200,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: const Color(0XFFffbe0b),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Container(
-                      width: 200,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: const Color(0XFFffbe0b),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Container(
-                      width: 200,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: const Color(0XFFffbe0b),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    )),
+                for (var i = 0; i < 8; i++) const CategorieBtn(),
               ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: NetworkImage("https://source.unsplash.com/random"),
-              ),
-              borderRadius: BorderRadius.circular(32),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: NetworkImage("https://source.unsplash.com/random"),
-              ),
-              borderRadius: BorderRadius.circular(32),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: NetworkImage("https://source.unsplash.com/random"),
-              ),
-              borderRadius: BorderRadius.circular(32),
             ),
           ),
           FutureBuilder(
@@ -168,15 +116,15 @@ class ShopPage extends StatelessWidget {
                           (e) => GestureDetector(
                             onTap: () {
                               Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductPage(
-                                name: e.name,
-                                description: e.description,
-                                price: e.price,
-                              ),
-                            ),
-                          );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductPage(
+                                    name: e.name,
+                                    description: e.description,
+                                    price: e.price,
+                                  ),
+                                ),
+                              );
                             },
                             child: Column(
                               children: [

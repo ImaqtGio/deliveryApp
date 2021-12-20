@@ -3,6 +3,7 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/src/cubits/feed/cubit.dart';
+import 'package:myapp/src/designSystem/post.dart';
 import 'package:myapp/src/models/post.dart';
 import 'package:myapp/src/pages/shop/shop.dart';
 
@@ -38,14 +39,15 @@ class Feed extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Column(
-                          children: [
-                            Image.network(e.image),
-                            Text(e.title),
-                            Text(
-                              e.likes.toString(),
-                            ),
-                          ],
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color(0XFFffbe0b),
+                          ),
+                          child: SinglePost(
+                            image: e.image,
+                            title: e.title,
+                            likes: e.likes.toString(),
+                          ),
                         ),
                       ),
                     )
