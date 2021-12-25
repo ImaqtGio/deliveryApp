@@ -25,10 +25,8 @@ class ShopCubit extends Cubit<ShopState> {
       description
     ''').eq('feed_id', id).execute();
     if (response.error != null){
-      print(response.error?.message);
       return <ProductObject>[];
     } else {
-      print(response.data);
       final list = response.data as List<dynamic>? ?? <dynamic>[];
       final post = <ProductObject>[];
       for (final e in list){

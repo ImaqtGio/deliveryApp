@@ -19,10 +19,8 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await
     Supabase.instance.client.auth.signUp(email, password);
     if (response.error != null){
-      print(response.error?.message);
       emit(AuthState.unlogged);
     } else {
-      print(response.data?.user?.email);
       emit(AuthState.logged);
     }
   }
@@ -30,10 +28,8 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await
     Supabase.instance.client.auth.signOut();
     if (response.error != null){
-      print(response.error?.message);
       emit(AuthState.logged);
     } else {
-      print(response);
       emit(AuthState.unlogged);
     }
   }

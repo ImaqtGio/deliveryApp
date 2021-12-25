@@ -14,7 +14,6 @@ enum AuthState {
 class FeedCubit extends Cubit<AuthState> {
   FeedCubit() : super(AuthState.unlogged);
 
-  
   Future<List<PostObject>> fetch() async {
     final response = await Supabase.instance.client.from('feed').select('''
       id,
@@ -23,10 +22,8 @@ class FeedCubit extends Cubit<AuthState> {
       likes
     ''').execute();
     if (response.error != null){
-      print(response.error?.message);
       return <PostObject>[];
     } else {
-      print(response.data);
       final list = response.data as List<dynamic>? ?? <dynamic>[];
       final post = <PostObject>[];
       for (final e in list){
