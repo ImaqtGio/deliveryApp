@@ -14,18 +14,21 @@ class CButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 56,
+      width: 300,
       decoration: BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(28),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(),
+          const SizedBox(),
           Text(
             label,
             style: GoogleFonts.poppins(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
@@ -33,7 +36,7 @@ class CButton extends StatelessWidget {
           ),
           Icon(
             icon,
-            size: 16,
+            size: 24,
             color: Colors.white,
           ),
         ],

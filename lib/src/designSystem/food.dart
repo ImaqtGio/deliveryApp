@@ -67,7 +67,7 @@ class SingleFood extends StatelessWidget {
                 ),
               ),
             ),
-            const FoodCounter(),
+            FoodCounter(price: price),
           ],
         ),
       ),

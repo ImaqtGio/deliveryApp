@@ -1,8 +1,6 @@
-import 'dart:io';
 
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myapp/src/models/post.dart';
 import 'package:myapp/src/models/product.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

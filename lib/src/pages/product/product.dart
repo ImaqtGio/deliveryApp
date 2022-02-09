@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
-  ProductPage({
+  const ProductPage({
     Key? key,
     required this.name,
     required this.description,
@@ -32,37 +32,35 @@ class _ProductPageState extends State<ProductPage> {
             width: 100,
             height: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: Container(
-              child: 
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      counter++;
-                    });
-                  },
-                  child: Text('add'),
-                ),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    counter++;
+                  });
+                },
+                child: const Text('add'),
+              ),
             ),
-          ),
           Container(
             width: 100,
             height: 100,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: Container(
-              child: 
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (counter>0) {
-                        counter--;
-                      }
-                    });
-                  },
-                  child: Text('subtract'),
-                ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
             ),
-          ),
-          Text(counter.toString())
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (counter > 0) {
+                      counter--;
+                    }
+                  });
+                },
+                child: const Text('subtract'),
+              ),
+            ),
+          Text(
+            counter.toString(),
+          )
         ],
       ),
     );

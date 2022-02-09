@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/src/cubits/Auth/cubit.dart';
-import 'package:myapp/src/pages/authentication/login.dart';
-import 'package:myapp/src/pages/counter/counter.dart';
-import 'package:myapp/src/pages/feed/feed.dart';
-import 'package:myapp/src/pages/home.dart';
-import 'package:myapp/src/pages/profile/profile.dart';
-import 'package:myapp/src/pages/shop/shop.dart';
-import 'package:myapp/src/pages/state/state.dart';
+import 'package:myapp/src/designSystem/loading.dart';
+import 'package:myapp/src/pages/login/login.dart';
+import 'package:myapp/src/pages/tab/tab.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -15,16 +11,19 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/login': (context) => const Login(),
+        '/tab-bar': (context) => const TabBarPage(),
+      },
+
       home: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          if (state == AuthState.logged){
-            return const Feed();
-          }
-          else if (state == AuthState.unlogged) {
-            return const Feed();
-          }
-          else {
-            return const CircularProgressIndicator();
+          if (state == AuthState.logged) {
+            return const TabBarPage();
+          } else if (state == AuthState.unlogged) {
+            return const Login();
+          } else {
+            return const Loading();
           }
         },
       ),

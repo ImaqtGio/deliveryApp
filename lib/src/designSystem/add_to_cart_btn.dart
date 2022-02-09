@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myapp/src/cubits/totalprice/cubit.dart';
 
 class AddToCart extends StatelessWidget {
-   AddToCart({
+  const AddToCart({
     Key? key,
-    required this.totalPrice,
   }) : super(key: key);
-
-  double totalPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +35,19 @@ class AddToCart extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              "Totale: " + totalPrice.toString() + " €",
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-              ),
+            BlocBuilder<TotalPriceCubit, double>(
+              builder: (context, totalPrice) {
+                if (totalPrice <= 0) {
+                  totalPrice = 0.00;
+                }
+                return Text(
+                  "Totale: " + totalPrice.toStringAsFixed(2) + " €",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                );
+              },
             ),
           ],
         ),

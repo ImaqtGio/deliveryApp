@@ -1,8 +1,7 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/src/cubits/feed/cubit.dart';
+import 'package:myapp/src/designSystem/loading.dart';
 import 'package:myapp/src/designSystem/post.dart';
 import 'package:myapp/src/models/post.dart';
 import 'package:myapp/src/pages/shop/shop.dart';
@@ -35,6 +34,7 @@ class Feed extends StatelessWidget {
                                 id: e.id,
                                 title: e.title,
                                 imageUrl: e.image,
+                                subtitle: e.subtitle,
                               ),
                             ),
                           );
@@ -55,9 +55,7 @@ class Feed extends StatelessWidget {
               );
             }
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Loading();
           }
         },
       ),

@@ -1,22 +1,20 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FlowOrderTop extends StatelessWidget {
-  FlowOrderTop({
+  const FlowOrderTop({
     Key? key,
     required this.text,
     required this.state,
   }) : super(key: key);
 
-  String text = "ciao";
-  int state = 0;
+  final String text;
+  final int state;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0XFFffbe0b),
       ),
       child: Column(
@@ -27,10 +25,9 @@ class FlowOrderTop extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.network(
-                  (state == 0) ? "primaimg": (state == 1) ? "secondaimg": (state == 2) ? "terzaimg":"quartaimg",
-                  width: 50,
-                  height: 50,
+                Image.asset(
+                  (state == 0) ? "images/accepted.png": (state == 1) ? "images/retire.png": (state == 2) ? "images/delivery.png":"images/logo.png",
+                  width: 200,
                 ),
                 Center(
                   child: Padding(
@@ -42,7 +39,7 @@ class FlowOrderTop extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Container(
-                            margin: EdgeInsets.all(5),
+                            margin: const EdgeInsets.all(5),
                             height: 5,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -52,7 +49,7 @@ class FlowOrderTop extends StatelessWidget {
                         ),
                         Expanded(
                           child: Container(
-                            margin: EdgeInsets.all(5),
+                            margin: const EdgeInsets.all(5),
                             height: 5,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -62,7 +59,7 @@ class FlowOrderTop extends StatelessWidget {
                         ),
                         Expanded(
                           child: Container(
-                            margin: EdgeInsets.all(5),
+                            margin: const EdgeInsets.all(5),
                             height: 5,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),

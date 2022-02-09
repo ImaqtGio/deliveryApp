@@ -1,11 +1,12 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/src/cubits/Auth/cubit.dart';
+import 'package:myapp/src/cubits/categories/cubit.dart';
 import 'package:myapp/src/cubits/feed/cubit.dart';
+import 'package:myapp/src/cubits/pages/cubit.dart';
+import 'package:myapp/src/cubits/profiles/cubit.dart';
 import 'package:myapp/src/cubits/shop/cubit.dart';
-import 'package:myapp/src/pages/feed/feed.dart';
+import 'package:myapp/src/cubits/totalprice/cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import './src/app.dart';
 
@@ -21,12 +22,24 @@ void main() {
       );
   runApp(
     BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => ViewCubit(),
       child: BlocProvider(
-        create: (context) => FeedCubit(),
+        create: (context) => AuthCubit(),
         child: BlocProvider(
-          create: (context) => ShopCubit(),
-          child: const App(),
+          create: (context) => FeedCubit(),
+          child: BlocProvider(
+            create: (context) => ShopCubit(),
+            child: BlocProvider(
+              create: (context) => CategoriesCubit(),
+              child: BlocProvider(
+                create: (context) => TotalPriceCubit(),
+                child: BlocProvider(
+                  create: (context) => ProfilesCubit(),
+                  child: const App(),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     ),

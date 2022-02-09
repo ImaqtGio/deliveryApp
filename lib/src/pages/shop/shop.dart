@@ -1,17 +1,15 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/src/cubits/feed/cubit.dart';
+import 'package:myapp/src/cubits/categories/cubit.dart';
 import 'package:myapp/src/cubits/shop/cubit.dart';
 import 'package:myapp/src/designSystem/add_to_cart_btn.dart';
 import 'package:myapp/src/designSystem/categories.dart';
 import 'package:myapp/src/designSystem/food.dart';
-import 'package:myapp/src/designSystem/post.dart';
+import 'package:myapp/src/designSystem/loading.dart';
+import 'package:myapp/src/models/categories.dart';
 import 'package:myapp/src/models/product.dart';
-import 'package:myapp/src/pages/product/product.dart';
+import 'package:myapp/src/pages/state/order_confirmed.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({
@@ -19,11 +17,13 @@ class ShopPage extends StatelessWidget {
     required this.title,
     required this.imageUrl,
     required this.id,
+    required this.subtitle,
   }) : super(key: key);
 
   final String title;
   final String imageUrl;
   final int id;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +88,12 @@ class ShopPage extends StatelessWidget {
                     Text(
                       title,
                       style: GoogleFonts.poppins(
-                          fontSize: 32, fontWeight: FontWeight.bold),
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
-                      "subtitle",
+                      subtitle,
                       style: GoogleFonts.poppins(
                           fontSize: 20, fontWeight: FontWeight.w400),
                     ),
@@ -100,13 +102,35 @@ class ShopPage extends StatelessWidget {
               ),
               SizedBox(
                 height: 100,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    const SizedBox(width: 16),
-                    for (var i = 0; i < 8; i++) const CategorieBtn(),
-                    const SizedBox(width: 16),
-                  ],
+                child: FutureBuilder(
+                  future: BlocProvider.of<CategoriesCubit>(context).fetch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if ((snapshot.data as List<CategorieObject>).isEmpty) {
+                        return const Center(
+                          child: Text('Something went wrong'),
+                        );
+                      } else {
+                        final list = snapshot.data as List<CategorieObject>;
+                        return ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: list
+                              .map(
+                                (e) => GestureDetector(
+                                  onTap: () {},
+                                  child: CategorieBtn(
+                                    image: e.image,
+                                    name: e.name,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        );
+                      }
+                    } else {
+                      return const Loading();
+                    }
+                  },
                 ),
               ),
               const SizedBox(
@@ -150,8 +174,16 @@ class ShopPage extends StatelessWidget {
             width: 500,
             bottom: 16,
             left: 0,
-            child: AddToCart(
-              totalPrice: 3,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ConfirmedOrder(),
+                        ),
+                      );
+              },
+              child: const AddToCart(),
             ),
           ),
         ],

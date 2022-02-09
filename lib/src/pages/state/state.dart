@@ -15,15 +15,16 @@ class OrderPage extends StatelessWidget {
             final list = snapshot.data as List<Map<String, dynamic>>;
             if (list.isNotEmpty){
               final el = list.first;
-              print(el);
               final state = el['state'] as int;
               switch (state){
                 case 0:
-                  return FlowOrderTop(text: 'Ordine accettato', state: 0,);
+                  return const FlowOrderTop(text: 'Ordine accettato', state: 0,);
                 case 1:
-                  return FlowOrderTop(text: "Ritirando l'ordine", state: 1,);
+                  return const FlowOrderTop(text: "Ritirando l'ordine", state: 1,);
+                case 2:
+                  return const FlowOrderTop(text: "Consegnando l'ordine", state: 2,);
                 default:
-                  return FlowOrderTop(text: "Consegnando l'ordine", state: 2,);
+                  return const FlowOrderTop(text: "nessun ordine", state: 3,);
               }
             }
             return const SizedBox();
