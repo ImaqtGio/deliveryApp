@@ -5,6 +5,7 @@ import 'package:myapp/src/cubits/Auth/cubit.dart';
 import 'package:myapp/src/cubits/profiles/cubit.dart';
 import 'package:myapp/src/designSystem/button.dart';
 import 'package:myapp/src/models/profile.dart';
+import 'package:myapp/src/pages/profile/edit_profile.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -47,7 +48,19 @@ class Profile extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(24),
                         child: Text(
-                          data.firstName,
+                          data.firstName != '' ? data.firstName : 'Andrea?',
+                          style: GoogleFonts.poppins(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          data.lastName != ''
+                              ? data.lastName
+                              : 'compila i campi',
                           style: GoogleFonts.poppins(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
@@ -55,6 +68,31 @@ class Profile extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(
+                                  image: data.image,
+                                  firstName: data.firstName,
+                                  lastName: data.lastName,
+                                  email: data.email,
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(24),
+                            child: CButton(
+                              icon: Icons.edit,
+                              label: 'Edit account',
+                            ),
+                          ),
+                        ),
+                      ),
                       GestureDetector(
                         onTap: () {
                           BlocProvider.of<AuthCubit>(context).logout();

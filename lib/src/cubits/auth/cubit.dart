@@ -34,7 +34,14 @@ class AuthCubit extends Cubit<AuthState> {
     if (response.error != null) {
       emit(AuthState.unlogged);
     } else {
-      emit(AuthState.logged);
+      final response = await Supabase.instance.client.from('users').insert({
+        'email': email,
+      }).execute();
+      if (response.error == null) {
+        emit(AuthState.logged);
+      } else {
+        emit(AuthState.unlogged);
+      }
     }
   }
 
