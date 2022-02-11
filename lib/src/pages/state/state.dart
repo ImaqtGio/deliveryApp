@@ -8,7 +8,7 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(  
+      body: StreamBuilder(
         stream: Supabase.instance.client.from('status').stream().execute(),
         builder: (context,  snapshot){
           if (snapshot.hasData) {

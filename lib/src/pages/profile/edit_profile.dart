@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/src/app.dart';
 import 'package:myapp/src/cubits/pages/cubit.dart';
 import 'package:myapp/src/designSystem/button.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class EditProfile extends StatefulWidget {
-  EditProfile(
+class EditProfile extends StatefulWidget{
+  const EditProfile(
       {Key? key,
       required this.firstName,
       required this.lastName,
@@ -15,16 +14,20 @@ class EditProfile extends StatefulWidget {
       required this.email})
       : super(key: key);
 
-  String firstName;
-  String lastName;
-  String image;
-  String email;
+  final String firstName;
+  final String lastName;
+  final String image;
+  final String email;
 
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
+  late String newfirstName;
+  late String newlastName;
+  late String newimage;
+  late String newemail;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,10 +69,11 @@ class _EditProfileState extends State<EditProfile> {
                       color: Colors.white,
                     ),
                     onChanged: (String text) {
-                      widget.firstName = text;
+                      newfirstName = text;
+
                     },
                     onSubmitted: (String text) {
-                      widget.firstName = text;
+                      newfirstName = text;
                     },
                     obscureText: false,
                   ),
@@ -101,10 +105,10 @@ class _EditProfileState extends State<EditProfile> {
                       color: Colors.white,
                     ),
                     onChanged: (String text) {
-                      widget.lastName = text;
+                      newlastName = text;
                     },
                     onSubmitted: (String text) {
-                      widget.lastName = text;
+                      newlastName = text;
                     },
                     obscureText: false,
                   ),
@@ -136,10 +140,10 @@ class _EditProfileState extends State<EditProfile> {
                       color: Colors.white,
                     ),
                     onChanged: (String text) {
-                      widget.image = text;
+                      newimage = text;
                     },
                     onSubmitted: (String text) {
-                      widget.image = text;
+                      newimage = text;
                     },
                     obscureText: false,
                   ),
@@ -148,6 +152,15 @@ class _EditProfileState extends State<EditProfile> {
                   padding: const EdgeInsets.only(top: 60),
                   child: GestureDetector(
                     onTap: () {
+                      if(newfirstName == ''){
+                        newfirstName = widget.firstName;
+                      }
+                      if(newlastName == ''){
+                        newlastName = widget.lastName;
+                      }
+                      if(newimage == ''){
+                        newimage = widget.image;
+                      }
                       Supabase.instance.client
                           .from('users')
                           .update({
